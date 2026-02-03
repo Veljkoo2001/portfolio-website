@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Kontakt - Moj Portfolio{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <h1>Kontaktiraj me</h1>
+        <p class="lead">Imaš pitanje ili želiš da sarađuješ? Pošalji poruku!</p>
+        
+        <form method="post" class="mt-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="name" class="form-label">Ime</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Poruka</label>
+                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Pošalji poruku</button>
+        </form>
+    </div>
+    
+    <div class="col-lg-4 mt-4 mt-lg-0">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Kontakt informacije</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-envelope me-2"></i>
+                        veljkojakovljevic1@gmail.com
+                    </li>
+                    <li class="mb-2">
+                        <i class="fab fa-github me-2"></i>
+                        github.com/Veljkoo2001
+                    </li>
+                    <li class="mb-2">
+                        <i class="fab fa-linkedin me-2"></i>
+                        linkedin.com/in/veljko-jakovlejvic
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Početna - Moj Portfolio{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h1 class="display-4">Zdravo, ja sam Veljko Jakovljevic</h1>
+        <p class="lead">Full Stack Developer sa fokusom na BackEnd</p>
+        <p>Pravim web aplikacije koje rešavaju stvarne probleme.</p>
+        <a href="/projects/" class="btn btn-primary btn-lg">Pogledaj moje projekte</a>
+        <a href="/contact/" class="btn btn-outline-secondary btn-lg ms-2">Kontaktiraj me</a>
+    </div>
+    <div class="col-md-4">
+        <div class="text-center">
+            <div class="rounded-circle bg-secondary d-inline-flex align-items-center justify-content-center" 
+                 style="width: 200px; height: 200px;">
+                <img src="../../media/ja.png" alt="Opis slike" width="300" height="300">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-code fa-3x text-primary mb-3"></i>
+                <h3>Backend Development</h3>
+                <p>Python, PHP, Django, Django REST Framework, PostgreSQL</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-paint-brush fa-3x text-primary mb-3"></i>
+                <h3>Frontend Development</h3>
+                <p>HTML5, CSS3, JavaScript, Bootstrap</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <i class="fas fa-server fa-3x text-primary mb-3"></i>
+                <h3>DevOps & Deployment</h3>
+                <p>Git, GitHub, Docker, Linux, Deployment na live servere</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

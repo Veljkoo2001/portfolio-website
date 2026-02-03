@@ -1,0 +1,36 @@
+/* OSNOVNI STILOVI */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.card {
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Hero sekcija */
+.display-4 {
+    font-weight: 700;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+/* Responsive slike */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
