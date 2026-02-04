@@ -34,3 +34,41 @@ footer {
     max-width: 100%;
     height: auto;
 }
+/* Skill ikonice */
+.skill-icon {
+    padding: 20px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.skill-icon:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-5px);
+}
+
+/* Projekt kartice */
+.card-img-top {
+    object-fit: cover;
+}
+
+/* Badge stilovi */
+.badge {
+    font-size: 0.8rem;
+    font-weight: normal;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background-color: transparent;
+    padding-left: 0;
+}
+
+/* Alert animacija */
+.alert {
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ project.title }} - Portfolio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Početna</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'project_list' %}">Projekti</a></li>
+            <li class="breadcrumb-item active">{{ project.title }}</li>
+        </ol>
+    </nav>
+    
+    <!-- Projekt detalji -->
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="mb-3">{{ project.title }}</h1>
+            
+            <!-- Glavna slika -->
+            {% if project.image %}
+            <div class="mb-4">
+                <img src="{{ project.image.url }}" alt="{{ project.title }}" class="img-fluid rounded">
+            </div>
+            {% endif %}
+            
+            <!-- Opis -->
+            <div class="mb-4">
+                <h3>Opis projekta</h3>
+                <p>{{ project.description|linebreaks }}</p>
+            </div>
+            
+            <!-- Screenshots -->
+            {% if project.screenshot_1 or project.screenshot_2 %}
+            <div class="mb-4">
+                <h3>Screenshots</h3>
+                <div class="row">
+                    {% if project.screenshot_1 %}
+                    <div class="col-md-6 mb-3">
+                        <img src="{{ project.screenshot_1.url }}" alt="Screenshot 1" class="img-fluid rounded shadow">
+                    </div>
+                    {% endif %}
+                    {% if project.screenshot_2 %}
+                    <div class="col-md-6 mb-3">
+                        <img src="{{ project.screenshot_2.url }}" alt="Screenshot 2" class="img-fluid rounded shadow">
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Informacije o projektu</h5>
+                    
+                    <!-- Tehnologije -->
+                    <div class="mb-3">
+                        <h6>Korišćene tehnologije:</h6>
+                        <div class="d-flex flex-wrap gap-2">
+                            {% for tech in technologies_list %}
+                            <span class="badge bg-primary">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Datum -->
+                    <div class="mb-3">
+                        <h6>Datum završetka:</h6>
+                        <p class="mb-0">{{ project.completed_date|date:"F Y" }}</p>
+                    </div>
+                    
+                    <!-- Linkovi -->
+                    <div class="mb-3">
+                        <h6>Linkovi:</h6>
+                        {% if project.github_url %}
+                        <a href="{{ project.github_url }}" target="_blank" class="btn btn-dark w-100 mb-2">
+                            <i class="fab fa-github me-2"></i> GitHub Repo
+                        </a>
+                        {% endif %}
+                        
+                        {% if project.live_url %}
+                        <a href="{{ project.live_url }}" target="_blank" class="btn btn-success w-100">
+                            <i class="fas fa-external-link-alt me-2"></i> Live Demo
+                        </a>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Povratak -->
+                    <a href="{% url 'project_list' %}" class="btn btn-outline-secondary w-100">
+                        <i class="fas fa-arrow-left me-2"></i> Nazad na projekte
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

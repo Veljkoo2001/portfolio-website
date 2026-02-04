@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}Moji Projekti - Portfolio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Moji Projekti</h1>
+    <p class="lead mb-5">Ovo su projekti koje sam razvio koristeći Python, PHP, JavaScript i ostale moderne web tehnologije.</p>
+    
+    <!-- Istaknuti projekti -->
+    {% if featured_projects %}
+    <h2 class="mb-4">Istaknuti projekti</h2>
+    <div class="row mb-5">
+        {% for project in featured_projects %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                {% if project.image %}
+                <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" style="height: 200px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <p class="card-text">{{ project.short_description }}</p>
+                    <div class="mt-auto">
+                        <div class="mb-3">
+                            {% for tech in project.technologies_list %}
+                            <span class="badge bg-secondary me-1">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                        <a href="{{ project.get_absolute_url }}" class="btn btn-primary">Detalji</a>
+                        {% if project.live_url %}
+                        <a href="{{ project.live_url }}" target="_blank" class="btn btn-outline-secondary ms-2">
+                            <i class="fas fa-external-link-alt"></i> Demo
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <!-- Ostali projekti -->
+    <h2 class="mb-4">Svi projekti</h2>
+    <div class="row">
+        {% for project in other_projects %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100">
+                {% if project.image %}
+                <img src="{{ project.image.url }}" class="card-img-top" alt="{{ project.title }}" style="height: 180px; object-fit: cover;">
+                {% endif %}
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ project.title }}</h5>
+                    <p class="card-text">{{ project.short_description }}</p>
+                    <div class="mt-auto">
+                        <a href="{{ project.get_absolute_url }}" class="btn btn-outline-primary">Detalji</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                Trenutno nema projekata. Vrati se uskoro!
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

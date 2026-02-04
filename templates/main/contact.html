@@ -9,20 +9,21 @@
         <h1>Kontaktiraj me</h1>
         <p class="lead">Imaš pitanje ili želiš da sarađuješ? Pošalji poruku!</p>
         
+        <!-- Django Messages -->
+        {% if messages %}
+        <div class="mb-4">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        
+        <!-- Kontakt forma -->
         <form method="post" class="mt-4">
             {% csrf_token %}
-            <div class="mb-3">
-                <label for="name" class="form-label">Ime</label>
-                <input type="text" class="form-control" id="name" name="name" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="mb-3">
-                <label for="message" class="form-label">Poruka</label>
-                <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-            </div>
+            {{ form|crispy }}
             <button type="submit" class="btn btn-primary">Pošalji poruku</button>
         </form>
     </div>
@@ -42,9 +43,14 @@
                     </li>
                     <li class="mb-2">
                         <i class="fab fa-linkedin me-2"></i>
-                        linkedin.com/in/veljko-jakovlejvic
+                        linkedin.com/in/veljko-jakovljevic/
                     </li>
                 </ul>
+                
+                <hr>
+                
+                <h6>Brzi odgovor</h6>
+                <p class="small">Odgovaram obično u roku od 24 sata.</p>
             </div>
         </div>
     </div>

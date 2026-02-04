@@ -30,7 +30,7 @@
                         <a class="nav-link" href="/">Početna</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'projects' %}">Projekti</a>
+                        <a class="nav-link" href="{% url 'projects:project_list' %}">Projekti</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'about' %}">O meni</a>
@@ -41,6 +41,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../blog/">Blog</a>
                     </li>
+                     {% if user.is_superuser %}
+                    <li class="nav-item">
+                        <a class="nav-link text-warning" href="/admin/" target="_blank">
+                            <i class="fas fa-cog"></i> Admin
+                        </a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
