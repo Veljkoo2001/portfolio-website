@@ -4,6 +4,10 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib import messages
 from .forms import ContactForm
+from django.db.models import Q
+from projects.models import Project
+from blog.models import Post
+
 
 def home_view(request):
     return render(request, 'main/home.html')
@@ -47,3 +51,32 @@ def contact_view(request):
         form = ContactForm()
     
     return render(request, 'main/contact.html', {'form': form})
+def api_docs_view(request):
+    return render(request, 'api_docs.html')
+
+def search_view(request):
+    query = request.GET.get('q', '')
+    results = {
+        'projects': [],
+        'posts': [],
+    }
+    
+    if query:
+        # Pretraga projekata
+        results['projects'] = Project.objects.filter(
+            Q(title__icontains=query) |
+            Q(description__icontains=query) |
+            Q(technologies__icontains=query)
+        )[:5]  # Limit na 5 rezultata
+        
+        # Pretraga blog postova
+        results['posts'] = Post.objects.filter(
+            Q(title__icontains=query) |
+            Q(content__icontains=query),
+            status='published'
+        )[:5]
+    
+    return render(request, 'main/search.html', {
+        'query': query,
+        'results': results,
+    })

@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.html import format_html
 from .models import Project
 
@@ -34,3 +36,12 @@ class ProjectAdmin(admin.ModelAdmin):
         return "Nema slike"
     
     image_preview.short_description = "Slika"
+
+    def view_project(self, obj):
+        url = reverse(
+            "projects:project_detail",
+            kwargs={"slug": obj.slug}
+        )
+        return format_html('<a href="{}">View</a>', url)
+
+    view_project.short_description = "View on site"

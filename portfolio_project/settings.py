@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'main',
     'projects',
     'blog',
+
+    'rest_framework',
+    'rest_framework.authtoken',  # za API auth (opciono)
 ]
 
 MIDDLEWARE = [
@@ -138,3 +141,9 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # Za development
 DEFAULT_FROM_EMAIL = 'yourportfolio@example.com'
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
+}

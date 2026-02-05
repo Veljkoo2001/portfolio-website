@@ -8,7 +8,7 @@
     <nav aria-label="breadcrumb" class="mb-4">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Početna</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'project_list' %}">Projekti</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'projects:project_list' %}">Projekti</a></li>
             <li class="breadcrumb-item active">{{ project.title }}</li>
         </ol>
     </nav>
@@ -90,7 +90,7 @@
                     </div>
                     
                     <!-- Povratak -->
-                    <a href="{% url 'project_list' %}" class="btn btn-outline-secondary w-100">
+                    <a href="{% url 'projects:project_list' %}" class="btn btn-outline-secondary w-100">
                         <i class="fas fa-arrow-left me-2"></i> Nazad na projekte
                     </a>
                 </div>

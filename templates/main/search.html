@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Pretraga - Portfolio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Pretraga</h1>
+    
+    <!-- Search form -->
+    <form method="get" action="{% url 'search' %}" class="mb-5">
+        <div class="input-group">
+            <input type="text" class="form-control form-control-lg" 
+                   name="q" value="{{ query }}" 
+                   placeholder="Pretraži projekte i blog postove...">
+            <button class="btn btn-primary btn-lg" type="submit">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+    </form>
+    
+    <!-- Rezultati -->
+    {% if query %}
+        {% if results.projects or results.posts %}
+            <!-- Projekti -->
+            {% if results.projects %}
+            <div class="mb-5">
+                <h3>Projekti ({{ results.projects|length }})</h3>
+                <div class="list-group">
+                    {% for project in results.projects %}
+                    <a href="{{ project.get_absolute_url }}" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ project.title }}</h5>
+                            <small>{{ project.completed_date|date:"Y" }}</small>
+                        </div>
+                        <p class="mb-1">{{ project.short_description|truncatewords:20 }}</p>
+                        <small>{{ project.technologies }}</small>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
+            <!-- Blog postovi -->
+            {% if results.posts %}
+            <div class="mb-5">
+                <h3>Blog postovi ({{ results.posts|length }})</h3>
+                <div class="list-group">
+                    {% for post in results.posts %}
+                    <a href="{{ post.get_absolute_url }}" class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ post.title }}</h5>
+                            <small>{{ post.published_at|date:"Y" }}</small>
+                        </div>
+                        <p class="mb-1">{{ post.excerpt|default:post.content|truncatewords:20 }}</p>
+                        <small><i class="fas fa-eye"></i> {{ post.views }} pregleda</small>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        {% else %}
+            <div class="alert alert-warning">
+                Nema rezultata za "{{ query }}". Pokušajte sa drugim pojmom.
+            </div>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}

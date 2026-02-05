@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ post.title }} - Blog{% endblock %}
+
+{% block content %}
+<div class="container">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Početna</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'blog:blog' %}">Blog</a></li>
+            <li class="breadcrumb-item active">{{ post.title|truncatewords:5 }}</li>
+        </ol>
+    </nav>
+    
+    <!-- Blog post -->
+    <article>
+        <header class="mb-4">
+            <h1 class="mb-3">{{ post.title }}</h1>
+            <div class="text-muted mb-4">
+                <i class="fas fa-calendar me-1"></i> {{ post.published_at|date:"d.m.Y. H:i" }}
+                <span class="mx-2">•</span>
+                <i class="fas fa-eye me-1"></i> {{ post.views }} pregleda
+                <span class="mx-2">•</span>
+                <i class="fas fa-user me-1"></i> {{ post.author.username }}
+            </div>
+            
+            {% if post.image %}
+            <div class="mb-4">
+                <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid rounded">
+            </div>
+            {% endif %}
+        </header>
+        
+        <!-- Content -->
+        <div class="blog-content mb-5">
+            {{ post.content|linebreaks }}
+        </div>
+        
+        <!-- Komentari -->
+        <section class="mb-5">
+            <h3>Komentari ({{ comments.count }})</h3>
+            
+            <!-- Lista komentara -->
+            {% for comment in comments %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h6 class="card-subtitle mb-2 text-muted">{{ comment.name }}</h6>
+                        <small class="text-muted">{{ comment.created_at|date:"d.m.Y. H:i" }}</small>
+                    </div>
+                    <p class="card-text">{{ comment.content }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="alert alert-info">
+                Budite prvi koji će komentarisati!
+            </div>
+            {% endfor %}
+            
+            <!-- Forma za komentar -->
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Ostavite komentar</h5>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ comment_form.as_p }}
+                        <button type="submit" class="btn btn-primary">Pošalji komentar</button>
+                    </form>
+                    <small class="text-muted d-block mt-2">
+                        Komentar će biti prikazan nakon odobrenja.
+                    </small>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Povratak -->
+        <div class="text-center">
+            <a href="{% url 'blog:blog' %}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i> Nazad na blog
+            </a>
+        </div>
+    </article>
+</div>
+{% endblock %}

@@ -30,6 +30,8 @@ class Project(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    views_count = models.PositiveIntegerField(default=0, verbose_name="Broj pregleda")
+
     class Meta:
         ordering = ['order', '-completed_date']
         verbose_name = "Projekat"

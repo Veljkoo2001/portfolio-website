@@ -16,7 +16,7 @@
     
     {% block extra_css %}{% endblock %}
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
@@ -39,7 +39,10 @@
                         <a class="nav-link" href="{% url 'contact' %}">Kontakt</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../blog/">Blog</a>
+                        <a class="nav-link" href="{% url 'blog:blog' %}">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'api_docs' %}">API</a>
                     </li>
                      {% if user.is_superuser %}
                     <li class="nav-item">
@@ -50,6 +53,16 @@
                     {% endif %}
                 </ul>
             </div>
+            <!-- Search form u navbar -->
+            <form class="d-flex ms-3" method="get" action="{% url 'search' %}">
+            <div class="input-group">
+                <input type="text" class="form-control form-control-sm" 
+                    name="q" placeholder="Pretraži..." aria-label="Search">
+                <button class="btn btn-outline-light btn-sm" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+        </div>
+</form>
         </div>
     </nav>
 
@@ -60,7 +73,7 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4 mt-5">
+    <footer class="mt-auto bg-dark text-white py-4 mt-5">
         <div class="container text-center">
             <p>&copy; {% now "Y" %} Moj Portfolio. Sva prava zadržana.</p>
             <div class="social-links">

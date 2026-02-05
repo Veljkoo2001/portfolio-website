@@ -1,0 +1,137 @@
+{% extends 'base.html' %}
+
+{% block title %}API Dokumentacija - Moj Portfolio{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Portfolio API</h1>
+    <p class="lead">REST API za moje projekte. Koristi se za fetch podataka.</p>
+    
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">API Endpoints</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Metoda</th>
+                                <th>URL</th>
+                                <th>Opis</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="badge bg-primary">GET</span></td>
+                                <td><code>/api/projects/</code></td>
+                                <td>Lista svih projekata</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-primary">GET</span></td>
+                                <td><code>/api/projects/?featured=true</code></td>
+                                <td>Samo istaknuti projekti</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-primary">GET</span></td>
+                                <td><code>/api/projects/?search=django</code></td>
+                                <td>Pretraga projekata</td>
+                            </tr>
+                            <tr>
+                                <td><span class="badge bg-primary">GET</span></td>
+                                <td><code>/api/projects/&lt;id&gt;/</code></td>
+                                <td>Detalji određenog projekta</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Primer API poziva</h5>
+                </div>
+                <div class="card-body">
+                    <pre><code class="language-javascript">
+// JavaScript fetch primer
+fetch('/api/projects/')
+  .then(response => response.json())
+  .then(data => console.log(data));
+
+// Python requests primer
+import requests
+response = requests.get('http://tvoj-sajt.com/api/projects/')
+projects = response.json()
+                    </code></pre>
+                    
+                    <button class="btn btn-primary" id="testApiBtn">
+                        <i class="fas fa-bolt me-2"></i>Testiraj API
+                    </button>
+                    <div id="apiResult" class="mt-3"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Tehnologije API-ja</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2">
+                            <i class="fab fa-python text-primary me-2"></i>
+                            Django REST Framework
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-filter text-primary me-2"></i>
+                            Filter, Search, Sort
+                        </li>
+                        <li class="mb-2">
+                            <i class="fas fa-shield-alt text-primary me-2"></i>
+                            Read-only API
+                        </li>
+                    </ul>
+                    
+                    <div class="alert alert-info">
+                        <small>
+                            <i class="fas fa-info-circle me-2"></i>
+                            API je read-only. Ne zahteva autentifikaciju za GET zahteve.
+                        </small>
+                    </div>
+                    
+                    <a href="/api/projects/" target="_blank" class="btn btn-outline-primary w-100">
+                        <i class="fas fa-external-link-alt me-2"></i>Otvori API Browser
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+document.getElementById('testApiBtn').addEventListener('click', function() {
+    const resultDiv = document.getElementById('apiResult');
+    resultDiv.innerHTML = '<div class="alert alert-info">Učitavam podatke...</div>';
+    
+    fetch('/api/projects/?limit=2')
+        .then(response => response.json())
+        .then(data => {
+            let html = '<div class="alert alert-success">';
+            html += '<h6>Uspešno! Prva 2 projekta:</h6>';
+            html += '<ul class="mb-0">';
+            data.results.slice(0, 2).forEach(project => {
+                html += `<li><strong>${project.title}</strong>: ${project.short_description}</li>`;
+            });
+            html += '</ul>';
+            html += `<p class="mb-0 mt-2"><small>Ukupno projekata: ${data.count}</small></p>`;
+            html += '</div>';
+            resultDiv.innerHTML = html;
+        })
+        .catch(error => {
+            resultDiv.innerHTML = `<div class="alert alert-danger">Greška: ${error}</div>`;
+        });
+});
+</script>
+{% endblock %}
+{% endblock %}

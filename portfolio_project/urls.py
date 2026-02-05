@@ -24,6 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls')),
     path('projects/', include('projects.urls')),
+    path('api/', include('projects.api_urls')),
+    path('api-auth/', include('rest_framework.urls')),  # za login u API browser
 ]
 
 # Za serviranje media fajlova u development-u
