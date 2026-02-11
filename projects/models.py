@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from .managers import ProjectManager
 
 class Project(models.Model):
     title = models.CharField(max_length=200, verbose_name="Naslov")
@@ -36,6 +37,11 @@ class Project(models.Model):
         ordering = ['order', '-completed_date']
         verbose_name = "Projekat"
         verbose_name_plural = "Projekti"
+        indexes = [
+            models.Index(fields=['featured', 'completed_date']),
+            models.Index(fields=['slug']),
+            models.Index(fields=['technologies']),
+        ]
     
     def __str__(self):
         return self.title
@@ -46,3 +52,5 @@ class Project(models.Model):
     def technologies_list(self):
         """Vraća listu tehnologija"""
         return [tech.strip() for tech in self.technologies.split(',')]
+    
+    objects = ProjectManager()

@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404
 from .models import Project
+from django.views.decorators.cache import cache_page
 
+@cache_page(60 * 15)
 def project_list(request):
     """Lista svih projekata"""
     featured_projects = Project.objects.filter(featured=True)
@@ -13,6 +15,7 @@ def project_list(request):
     }
     return render(request, 'projects/list.html', context)
 
+@cache_page(60 * 30)
 def project_detail(request, slug):
     """Detaljna stranica projekta"""
     project = get_object_or_404(Project, slug=slug)
