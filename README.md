@@ -2,8 +2,6 @@
 
 Professional portfolio website developed to showcase my projects, technical skills, and backend-focused development approach. The application is fully deployed on a production server and configured with a proper web server setup.
 
-🌍 Live Demo
-
 🔗 Live Website: https://veljko.jakovljevic.me/
 
 🛠 Tech Stack
