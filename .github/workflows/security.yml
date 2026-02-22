@@ -16,7 +16,7 @@ jobs:
     - name: Run safety check
       run: |
         pip install safety
-        safety check -r requirements.txt --full-report
+        safety scan -r requirements.txt --full-report
     
     - name: Run bandit security scan
       run: |
